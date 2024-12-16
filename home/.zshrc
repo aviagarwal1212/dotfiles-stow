@@ -40,12 +40,7 @@ zi snippet OMZP::docker/completions/_docker
 zi ice as"completion"
 zi snippet OMZP::asdf/asdf.plugin.zsh
 
-zi ice as"completion"
-zi snippet https://github.com/nix-community/nix-zsh-completions/blob/master/nix-zsh-completions.plugin.zsh
-
-
 # Load completions
-zstyle ':completion:*' completer _complete _ignored _approximate
 fpath=(~/.zsh $fpath)
 autoload -U compinit && compinit
 zinit cdreplay -q
@@ -78,6 +73,7 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # PATH setup
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 export PATH="/home/avi/.mix/escripts:$PATH"
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
@@ -87,6 +83,8 @@ alias ll='ls -lh --color'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias winget='winget.exe'
+alias open='explorer.exe'
+alias dnf='sudo dnf'
 
 # Environment variables
 export EDITOR='nvim' # use vscode as default editor for the shell
@@ -97,6 +95,8 @@ export FZF_ALT_C_COMMAND='fd -H . $HOME'
 
 # Setup FZF
 source <(fzf --zsh)
+# Setup mise
+source <(mise activate zsh)
 
 
 

@@ -34,11 +34,11 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::git
 zinit snippet OMZP::command-not-found
 
-zi ice as"completion"
-zi snippet OMZP::docker/completions/_docker
+zinit ice as"completion"
+zinit snippet OMZP::docker/completions/_docker
 
-zi ice as"completion"
-zi snippet OMZP::asdf/asdf.plugin.zsh
+zinit ice as"completion"
+zinit snippet OMZP::asdf/asdf.plugin.zsh
 
 # Load completions
 fpath=(~/.zsh $fpath)
@@ -50,7 +50,7 @@ zinit cdreplay -q
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # Keybindings
-bindkey -v
+bindkey -e
 
 # History
 HISTSIZE=5000
@@ -73,8 +73,11 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # PATH setup
+# include mise shims
 export PATH="$HOME/.local/share/mise/shims:$PATH"
+# include escripts created with elixir
 export PATH="/home/avi/.mix/escripts:$PATH"
+# include haskell stuff
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
 # Aliases
@@ -87,7 +90,7 @@ alias open='explorer.exe'
 alias dnf='sudo dnf'
 
 # Environment variables
-export EDITOR='nvim' # use vscode as default editor for the shell
+export EDITOR='nvim' 
 export ERL_FLAGS='-kernel shell_history enabled' # for iex, allows history across sessions
 export ELIXIR_ERL_OPTIONS="+fnu" # for livebook, but doesn't seem to work
 export DISPLAY=:0 # use WSLg

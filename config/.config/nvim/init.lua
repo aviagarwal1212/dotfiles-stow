@@ -51,6 +51,7 @@ vim.opt.title = true
 vim.opt.foldmethod = 'manual'
 -- spell check
 vim.opt.spelllang = "en_us"
+vim.opt.spell = false
 
 -- Package Management
 -- setup lazy.nvim package manager
@@ -119,6 +120,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.cursorline = false
-    vim.opt.spell = true
+    vim.opt_local.spell = true
   end
 })

@@ -153,6 +153,10 @@ require("lazy").setup({
         require("config.markdown")
       end
     },
+		-- tables
+		{
+			"dhruvasagar/vim-table-mode"
+		}
   },
   ui = {
     border = 'rounded'

@@ -1,7 +1,7 @@
 local lspconfig = require("lspconfig")
 
 -- lua
-lspconfig.lua_ls.setup {}
+-- lspconfig.lua_ls.setup {}
 -- elixir
 lspconfig.elixirls.setup {
   cmd = { "/home/avi/.nix-profile/bin/elixir-ls" }

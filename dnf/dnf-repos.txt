@@ -1,10 +1,11 @@
-repo id                                                repo name
-copr:copr.fedorainfracloud.org:agriffis:neovim-nightly Copr repo for neovim-nightly owned by agriffis
-copr:copr.fedorainfracloud.org:atim:lazygit            Copr repo for lazygit owned by atim
-copr:copr.fedorainfracloud.org:rivenirvana:lazydocker  Copr repo for lazydocker owned by rivenirvana
-copr:copr.fedorainfracloud.org:wslutilities:wslu       Copr repo for wslu owned by wslutilities
-fedora                                                 Fedora 40 - aarch64
-fedora-cisco-openh264                                  Fedora 40 openh264 (From Cisco) - aarch64
-mise-repo                                              mise repo
-rawhide                                                Fedora - Rawhide - Developmental packages for the next Fedora release
-updates                                                Fedora 40 - aarch64 - Updates
+repo id                                                    repo name
+copr:copr.fedorainfracloud.org:agriffis:neovim-nightly     Copr repo for neovim-nightly owned by agriffis
+copr:copr.fedorainfracloud.org:alternateved:bleeding-emacs Copr repo for bleeding-emacs owned by alternateved
+copr:copr.fedorainfracloud.org:atim:lazygit                Copr repo for lazygit owned by atim
+copr:copr.fedorainfracloud.org:rivenirvana:lazydocker      Copr repo for lazydocker owned by rivenirvana
+copr:copr.fedorainfracloud.org:wslutilities:wslu           Copr repo for wslu owned by wslutilities
+fedora                                                     Fedora 40 - aarch64
+fedora-cisco-openh264                                      Fedora 40 openh264 (From Cisco) - aarch64
+mise-repo                                                  mise repo
+rawhide                                                    Fedora - Rawhide - Developmental packages for the next Fedora release
+updates                                                    Fedora 40 - aarch64 - Updates

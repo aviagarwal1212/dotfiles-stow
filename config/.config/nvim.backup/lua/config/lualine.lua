@@ -51,31 +51,31 @@ custom_gruvbox.command.z = custom_gruvbox.command.a
 
 
 require('lualine').setup({
-	options = {
-		theme = custom_gruvbox,
-		component_separators = { left = '', right = '' },
-		section_separators = { left = '', right = '' },
-		globalstatus = true,
-	},
+  options = {
+    theme = custom_gruvbox,
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
+    globalstatus = true,
+  },
 
-	sections = {
-		lualine_a = { { 'mode', fmt = function(str) return str:lower() end } },
-		lualine_b = {},
-		lualine_c = { {
-			'filename',
-			path = 1,
-			symbols = { modified = '●', readonly = '#', unnamed = 'SCRATCH', newfile = ' ●' },
-		} },
-		lualine_x = {
-			{
-				'diagnostics',
-				sources = { 'nvim_diagnostic' },
-				symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
-			},
-		},
-		lualine_y = { { 'branch', icons_enabled = false } },
-		lualine_z = { 'searchcount', 'selectioncount' }
-	},
+  sections = {
+    lualine_a = { { 'mode', fmt = function(str) return str:lower() end } },
+    lualine_b = {},
+    lualine_c = { {
+      'filename',
+      path = 1,
+      symbols = { modified = '●', readonly = '#', unnamed = 'SCRATCH', newfile = ' ●' },
+    } },
+    lualine_x = {
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic' },
+        symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
+      },
+    },
+    lualine_y = { { 'branch', icons_enabled = false } },
+    lualine_z = { 'searchcount', 'selectioncount' }
+  },
 
-	extensions = { 'quickfix', 'fzf', 'lazy', 'man' }
+  extensions = { 'quickfix', 'fzf', 'lazy', 'man' }
 })

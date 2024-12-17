@@ -50,7 +50,7 @@ vim.opt.title = true
 -- folding
 vim.opt.foldmethod = 'manual'
 -- spell check
-vim.opt.spelllang = "en_gb"
+vim.opt.spelllang = "en_us"
 vim.opt.spell = false
 
 -- Package Management
@@ -61,21 +61,23 @@ require("config.lazy")
 -- Remove search highlights using <Esc> in Normal mode
 vim.keymap.set('n', '<esc>', '<cmd>nohl<cr>')
 --
--- oil.nvim
-vim.keymap.set('n', '-', "<cmd>Oil<cr>")
+-- mini.files
+vim.keymap.set('n', '-', function()
+  MiniFiles.open(vim.api.nvim_buf_get_name(0))
+end)
 --
 -- terminal mode
 vim.keymap.set('n', '<bs>t', '<cmd>terminal<cr>')
-vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
+vim.keymap.set('t', '<localleader><localleader>', '<c-\\><c-n>')
 -- git
-vim.keymap.set('n', '<bs>g', function() require("snacks").lazygit() end)
+vim.keymap.set('n', '<bs>g', function() Snacks.lazygit() end)
 --
 -- lsp
 vim.keymap.set('n', '<leader>k', function()
-	vim.lsp.buf.hover({ border = 'rounded' })
+  vim.lsp.buf.hover({ border = 'rounded' })
 end)
 vim.keymap.set('i', '<C-s>', function()
-	vim.lsp.buf.signature_help({ border = 'rounded' })
+  vim.lsp.buf.signature_help({ border = 'rounded' })
 end)
 vim.keymap.set('n', 'ga', '<cmd>FzfLua lsp_code_actions<cr>')
 vim.keymap.set({ 'n', 'v' }, 'gd', function() vim.lsp.buf.definition() end)
@@ -94,22 +96,30 @@ vim.keymap.set({ 'n', 'v' }, '<localleader>c', '<cmd>FzfLua commands<cr>')
 --
 -- buffer management
 vim.keymap.set({ 'n', 'i', 'x', 'o', 't' }, '<F12>', '<cmd>b#<cr>')
-vim.keymap.set('n', '<localleader>x', function() require("snacks").bufdelete() end)
+vim.keymap.set('n', '<localleader>x', function() Snacks.bufdelete() end)
+--
+-- copilot
+vim.keymap.set({ 'n', 'v' }, '<bs>a', function()
+  local actions = require("CopilotChat.actions")
+  require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+end)
+vim.keymap.set('i', '<C-y>', 'copilot#Accept("<Plug>(copilot-suggest)")', { expr = true, replace_keycodes = false })
 
 -- Autocommands
 -- No cursorline in terminal
 vim.api.nvim_create_autocmd('termopen', {
-	desc = "switch off cursorline in terminal",
-	group = vim.api.nvim_create_augroup('onterminalopen', { clear = true }),
-	callback = function()
-		vim.opt.cursorline = false
-	end
+  desc = "switch off cursorline in terminal",
+  group = vim.api.nvim_create_augroup('onterminalopen', { clear = true }),
+  callback = function()
+    vim.opt.cursorline = false
+  end
 })
 -- wrap settings in markdown
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-	pattern = { "*.md", "*.txt", "SCRATCH*" },
-	callback = function()
-		vim.opt_local.number = false
-		vim.opt_local.spell = true
-	end
+  pattern = { "*.md", "*.txt", "SCRATCH*" },
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.cursorline = false
+    vim.opt_local.spell = true
+  end
 })

@@ -26,9 +26,17 @@ require("lazy").setup({
       "ellisonleao/gruvbox.nvim",
       priority = 1000,
       config = function()
-        require("config.theme")
+        require("config.gruvbox")
       end
     },
+		-- kanagawa
+		{
+			"rebelot/kanagawa.nvim",
+			priority = 1000,
+			config = function()
+				-- require("config.kanagawa")
+			end
+		},
     -- treesitter
     {
       "nvim-treesitter/nvim-treesitter",
@@ -44,11 +52,7 @@ require("lazy").setup({
         {
           "folke/lazydev.nvim",
           ft = "lua",
-          opts = {
-            library = {
-              { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-            }
-          }
+          opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } }, } }
         }
       },
       config = function()
@@ -129,31 +133,7 @@ require("lazy").setup({
         suppressed_dirs = { "~/", "/" }
       }
     },
-    -- copilot
-    {
-      "copilotC-Nvim/copilotChat.nvim",
-      dependencies = {
-        { "github/copilot.vim" },
-        { "nvim-lua/plenary.nvim", branch = "master" },
-      },
-      build = "make tiktoken",
-      opts = {},
-      config = function()
-        require("config.copilot")
-      end
-    },
     -- markdown
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        "echasnovski/mini.nvim",
-      },
-      config = function()
-        require("config.markdown")
-      end
-    },
-		-- tables
 		{
 			"dhruvasagar/vim-table-mode"
 		}

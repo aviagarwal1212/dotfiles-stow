@@ -8,6 +8,7 @@ bun = true
 
 [tools]
 bun = "latest"
+"cargo:watchexec-cli" = "latest"
 # rust = "1.82.0"
 elixir = "latest"
 elixir-ls = "latest"

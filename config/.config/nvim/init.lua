@@ -84,16 +84,16 @@ vim.keymap.set({ 'n', 'v' }, 'gd', function() vim.lsp.buf.definition() end)
 vim.keymap.set('n', '<localleader><localleader>', '<cmd>FzfLua resume<cr>')
 vim.keymap.set('n', '<localleader>d', '<cmd>FzfLua diagnostics_document<cr>')
 vim.keymap.set('n', '<localleader>f', '<cmd>FzfLua files<cr>')
-vim.keymap.set('n', '<localleader>b', '<cmd>FzfLua buffers<cr>')
+vim.keymap.set({ 'n', 'i', 'x', 'o', 't' }, '<F12>', '<cmd>FzfLua buffers<cr>')
 vim.keymap.set('n', '<localleader>m', '<cmd>FzfLua marks<cr>')
 vim.keymap.set('n', '<localleader>p', '<cmd>FzfLua builtin<cr>')
 vim.keymap.set('n', '<localleader>g', '<cmd>FzfLua grep_project<cr>')
 vim.keymap.set('n', '<localleader>s', '<cmd>FzfLua lsp_workspace_symbols<cr>')
 vim.keymap.set('n', '<localleader>o', '<cmd>FzfLua lsp_document_symbols<cr>')
 vim.keymap.set({ 'n', 'v' }, '<localleader>c', '<cmd>FzfLua commands<cr>')
+vim.keymap.set('n', '<C-R>', '<cmd>SessionSearch<cr>')
 --
 -- buffer management
-vim.keymap.set({ 'n', 'i', 'x', 'o', 't' }, '<F12>', '<cmd>b#<cr>')
 vim.keymap.set('n', '<localleader>x', function() require("snacks").bufdelete() end)
 
 -- Autocommands
@@ -112,4 +112,23 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 		vim.opt_local.number = false
 		vim.opt_local.spell = true
 	end
+})
+
+-- show active application as terminal buffer name
+-- create a callback function to rename the buffer
+function set_terminal_title()
+	local buffer = vim.api.nvim_get_current_buf()
+	local shell_id = vim.b.terminal_job_pid
+	if shell_id then
+		local fg_process = vim.fn.system("ps --ppid " .. shell_id .. " -o comm= | head -n 1")
+		if not fg_process then
+			fg_process = "zsh"
+		end
+		vim.api.nvim_buf_set_name(buffer, "term://" .. fg_process .. "-" .. buffer)
+	end
+end
+
+vim.api.nvim_create_autocmd({ "TermOpen", "BufLeave" }, {
+	pattern = "term://*",
+	callback = set_terminal_title
 })

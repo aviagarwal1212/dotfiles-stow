@@ -140,9 +140,9 @@ require("lazy").setup({
 		{
 			"rmagatti/auto-session",
 			lazy = false,
-			opts = {
-				suppressed_dirs = { "~/", "/" }
-			}
+			config = function()
+				require("config.session")
+			end
 		},
 		-- markdown
 		{

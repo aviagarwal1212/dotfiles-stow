@@ -5,5 +5,8 @@ require("fzf-lua").setup({
 			layout = 'vertical'
 		}
 	},
-	fzf_colors = true
+	fzf_colors = true,
+	file_icons = "mini",
 })
+
+require("fzf-lua").register_ui_select()

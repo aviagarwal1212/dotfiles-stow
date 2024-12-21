@@ -59,39 +59,53 @@ require("config.lazy")
 
 -- Keymappings
 -- Remove search highlights using <Esc> in Normal mode
-vim.keymap.set('n', '<esc>', '<cmd>nohl<cr>')
+vim.keymap.set('n', '<esc>', ':nohl<cr>')
 --
 -- oil.nvim
-vim.keymap.set('n', '-', "<cmd>Oil<cr>")
+vim.keymap.set('n', '-', ":Oil<cr>")
 --
 -- terminal mode
-vim.keymap.set('n', '<bs>t', '<cmd>terminal<cr>')
+vim.keymap.set('n', '<bs>t', ':terminal ')
 vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>')
--- git
-vim.keymap.set('n', '<bs>g', function() require("snacks").lazygit() end)
 --
 -- lsp
+-- trigger hover
 vim.keymap.set('n', '<leader>k', function()
-	vim.lsp.buf.hover({ border = 'rounded' })
+	vim.lsp.buf.hover()
 end)
+-- trigger signature help
 vim.keymap.set('i', '<C-s>', function()
-	vim.lsp.buf.signature_help({ border = 'rounded' })
+	vim.lsp.buf.signature_help()
 end)
-vim.keymap.set('n', 'ga', '<cmd>FzfLua lsp_code_actions<cr>')
+--
+-- code actions
+vim.keymap.set('n', 'ga', ':FzfLua lsp_code_actions<cr>')
+-- go to definition
 vim.keymap.set({ 'n', 'v' }, 'gd', function() vim.lsp.buf.definition() end)
+-- rename
+vim.keymap.set('n', 'gr', function() vim.lsp.buf.rename() end)
+-- set mark
+vim.keymap.set('n', 'gm', ':mark ')
 --
 -- pickers
-vim.keymap.set('n', '<localleader><localleader>', '<cmd>FzfLua resume<cr>')
-vim.keymap.set('n', '<localleader>d', '<cmd>FzfLua diagnostics_document<cr>')
-vim.keymap.set('n', '<localleader>f', '<cmd>FzfLua files<cr>')
-vim.keymap.set({ 'n', 'i', 'x', 'o', 't' }, '<F12>', '<cmd>FzfLua buffers<cr>')
-vim.keymap.set('n', '<localleader>m', '<cmd>FzfLua marks<cr>')
-vim.keymap.set('n', '<localleader>p', '<cmd>FzfLua builtin<cr>')
-vim.keymap.set('n', '<localleader>g', '<cmd>FzfLua grep_project<cr>')
-vim.keymap.set('n', '<localleader>s', '<cmd>FzfLua lsp_workspace_symbols<cr>')
-vim.keymap.set('n', '<localleader>o', '<cmd>FzfLua lsp_document_symbols<cr>')
-vim.keymap.set({ 'n', 'v' }, '<localleader>c', '<cmd>FzfLua commands<cr>')
-vim.keymap.set('n', '<C-R>', '<cmd>SessionSearch<cr>')
+-- a double localleader to jump buffers
+vim.keymap.set({ 'n', 'i', 'x', 'o', 't' }, '<localleader><localleader>', ':FzfLua buffers<cr>')
+-- file picker
+vim.keymap.set('n', '<localleader>f', ':FzfLua files<cr>')
+-- symbol outline
+vim.keymap.set('n', '<localleader>o', ':FzfLua lsp_document_symbols<cr>')
+-- symbol search
+vim.keymap.set('n', '<localleader>s', ':FzfLua lsp_workspace_symbols<cr>')
+-- marks (capitals are maintained across files)
+vim.keymap.set('n', '<localleader>m', ':FzfLua marks<cr>')
+-- grep-based search across the whole project
+vim.keymap.set('n', '<localleader>g', ':FzfLua grep_project<cr>')
+-- pick from available pickers
+vim.keymap.set('n', '<localleader>]', ':FzfLua builtin<cr>')
+-- search through commandslsp_document_symbols
+vim.keymap.set({ 'n', 'v' }, '<localleader>[', ':FzfLua commands<cr>')
+-- diagnostics
+vim.keymap.set('n', '<localleader>d', ':FzfLua diagnostics_document<cr>')
 --
 -- buffer management
 vim.keymap.set('n', '<localleader>x', function() require("snacks").bufdelete() end)
@@ -112,23 +126,4 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 		vim.opt_local.number = false
 		vim.opt_local.spell = true
 	end
-})
-
--- show active application as terminal buffer name
--- create a callback function to rename the buffer
-function set_terminal_title()
-	local buffer = vim.api.nvim_get_current_buf()
-	local shell_id = vim.b.terminal_job_pid
-	if shell_id then
-		local fg_process = vim.fn.system("ps --ppid " .. shell_id .. " -o comm= | head -n 1")
-		if not fg_process then
-			fg_process = "zsh"
-		end
-		vim.api.nvim_buf_set_name(buffer, "term://" .. fg_process .. "-" .. buffer)
-	end
-end
-
-vim.api.nvim_create_autocmd({ "TermOpen", "BufLeave" }, {
-	pattern = "term://*",
-	callback = set_terminal_title
 })

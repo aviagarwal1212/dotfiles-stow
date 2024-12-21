@@ -15,6 +15,7 @@ gh-2.63.2-1.fc42.aarch64
 git-2.47.1-1.fc40.aarch64
 glibc-minimal-langpack-2.39-30.fc40.aarch64
 gzip-1.13-1.fc40.aarch64
+inotify-tools-4.23.9.0-2.fc41.aarch64
 lazydocker-0.23.3-1.20240810gitde40167.fc40.aarch64
 lazygit-0.44.0-1.fc40.aarch64
 mise-2024.12.11-1.aarch64

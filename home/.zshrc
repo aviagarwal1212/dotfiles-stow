@@ -76,9 +76,13 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 # include mise shims
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 # include escripts created with elixir
-export PATH="/home/avi/.mix/escripts:$PATH"
+export PATH="$HOME/.mix/escripts:$PATH"
 # include haskell stuff
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+# html language server
+export PATH="$HOME/.local/share/mise/installs/npm-vscode-langservers-extracted/4.10.0/bin:$PATH"
+# tailwind language server
+export PATH="$HOME/.local/share/mise/installs/npm-tailwindcss-language-server/0.0.27/bin:$PATH"
 
 # Aliases
 alias la='ls -Alh --color'
